@@ -3,9 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Resume - Nguyen Vu Tuong Anh</title>
+    <link rel="stylesheet" href="../mainstyle.css">
 </head>
 <body style="background-color: #fdf5e6; color: #000000; font-family: 'Times New Roman', Times, serif; padding: 20px;">
 
+    <div id="menu-container"></div>      
+    <script>
+        fetch('../index.html')
+        .then(response => response.text())
+        .then(data => {
+            let parser = new DOMParser();
+            let doc = parser.parseFromString(data, 'text/html');
+            let menu = doc.getElementById('container');
+            
+            if (menu) {
+                document.getElementById('menu-container').appendChild(menu);
+                
+                let links = document.querySelectorAll('#menu-container a');
+                links.forEach(link => {
+                    let currentHref = link.getAttribute('href');
+                    if (currentHref && currentHref !== '#') {
+                        link.setAttribute('href', '../' + currentHref);
+                    }
+                });
+            }
+        })
+        .catch(error => console.error('Lỗi khi tải menu:', error));
+    </script>
+    <br>
     <h1 align="center">NGUYEN VU TUONG ANH</h1>
     <h3 align="center">Business Analyst Intern</h3>
     <p align="center">
@@ -90,7 +115,6 @@
         <li><b>Soft Skills:</b> Communication, Collaboration, Adaptability, Interpersonal Skills, Time Management.</li>
     </ul>
 
-    <!-- Bổ sung ex 18 -->
     <br>
     <div style="border: 2px solid black; width: 60%; margin: 0 auto; padding: 20px;">
         <h3 style="margin-top: 0;">Other Information</h3>
