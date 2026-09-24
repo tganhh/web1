@@ -11,14 +11,24 @@
 
     <div id="menu-container"></div>      
     <script>
-        // Dùng ../ để lùi ra thư mục gốc tìm file index.html chứa menu
         fetch('../index.html')
         .then(response => response.text())
         .then(data => {
+            // Chèn nội dung menu vào thẻ div
             document.getElementById('menu-container').innerHTML = data;
+            
+            // Tìm tất cả các thẻ <a> trong menu và thêm "../" vào đầu đường dẫn
+            let links = document.querySelectorAll('#menu-container a');
+            links.forEach(link => {
+                let currentHref = link.getAttribute('href');
+                if (currentHref && currentHref !== '#') {
+                    link.setAttribute('href', '../' + currentHref);
+                }
+            });
         })
         .catch(error => console.error('Lỗi khi tải menu:', error));
     </script>
+    
     <div id="page">
 
         <div align="center">
