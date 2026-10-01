@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <title>ServerGet</title>
+    <style>
+        /* Thêm chút CSS cơ bản cho bảng dễ nhìn hơn */
+        table {
+            border-collapse: collapse;
+            width: 300px;
+        }
+        td {
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <table border="1">
+            <tr>
+                <td><strong>User:</strong></td>
+                <td id="iduser"></td>
+            </tr>
+            <tr>
+                <td><strong>Email:</strong></td>
+                <td id="idemail"></td>
+            </tr>
+        </table>
+    </form>
+
+    <script>
+        // Sử dụng URLSearchParams (cách hiện đại) thay vì Regex phức tạp
+        const params = new URLSearchParams(window.location.search);
+        
+        // Lấy giá trị từ URL, nếu không có thì hiển thị "Chưa có thông tin"
+        const ten = params.get("txtten") || "Chưa có thông tin";
+        const email = params.get("txtemail") || "Chưa có thông tin";
+
+        // Sử dụng textContent thay cho innerHTML để bảo mật, chống tấn công XSS
+        document.getElementById("iduser").textContent = ten;
+        document.getElementById("idemail").textContent = email;
+    </script>
+</body>
+</html>
